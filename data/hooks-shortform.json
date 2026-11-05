@@ -1,0 +1,383 @@
+{
+  "version": "2.0.0",
+  "platform": "instagram,youtube-shorts,linkedin-video",
+  "source": "Jakeschincariol/instagram-agent-skill ig-reel hooks.json (SF-01..26, source order and classify_order)",
+  "evidence": "craft; source's own calibration: hookscore AUC 0.83 bad vs real hooks, only 0.56 hits vs misses (n=74)",
+  "rules": [
+    "Write the spoken line and the on-screen line separately; on-screen 6 words or fewer.",
+    "No setup: the video starts at what would be second 6.",
+    "Say the number.",
+    "A static first frame wastes the hook.",
+    "If anyone in the niche could say it, it is not the user's hook.",
+    "Deliver the promise before the halfway mark.",
+    "Spoken hook <= 3 s (about 8 words at 2.5 words/s).",
+    "Examples show shape only; never reuse their numbers."
+  ],
+  "classify_order": [
+    "SF-01",
+    "SF-23",
+    "SF-05",
+    "SF-04",
+    "SF-03",
+    "SF-15",
+    "SF-20",
+    "SF-07",
+    "SF-09",
+    "SF-26",
+    "SF-25",
+    "SF-24",
+    "SF-18",
+    "SF-17",
+    "SF-08",
+    "SF-06",
+    "SF-16",
+    "SF-12",
+    "SF-10",
+    "SF-02",
+    "SF-13",
+    "SF-19",
+    "SF-21",
+    "SF-22",
+    "SF-11",
+    "SF-14"
+  ],
+  "hooks": [
+    {
+      "id": "SF-01",
+      "name": "Cost Confession",
+      "template": "{Specific amount} is what {one mistake} cost me.",
+      "example": "$18,000 is what one missing clause cost me.",
+      "best_for": "trust",
+      "goal": "follows",
+      "trap": "A fake cost ('my peace of mind').",
+      "match": [
+        "\\$\\s?\\d[\\d,]*\\s+(is|was) what\\b|\\bcost (me|us|him|her|them)\\b|\\blost\\b[^.!?]{0,20}\\$\\s?\\d"
+      ],
+      "on_screen": "$18,000 MISTAKE"
+    },
+    {
+      "id": "SF-02",
+      "name": "Negative Command",
+      "template": "Stop {common action}. Do {alternative} instead.",
+      "example": "Stop writing captions first. Write the on-screen line first.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "A habit nobody actually has.",
+      "match": [
+        "^\\s*stop \\w+",
+        "\\binstead\\.?\\s*$"
+      ],
+      "on_screen": "STOP {ACTION}"
+    },
+    {
+      "id": "SF-03",
+      "name": "Nobody Tells You",
+      "template": "Nobody tells you that {uncomfortable truth}.",
+      "example": "Nobody tells you the first 100 videos are practice.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "A truth everybody already says.",
+      "match": [
+        "\\b(nobody|no one|nobody ever)\\s+(ever\\s+)?(tells|told|talks|talked|says|said|mentions|teaches)\\b"
+      ],
+      "on_screen": "NOBODY SAYS THIS"
+    },
+    {
+      "id": "SF-04",
+      "name": "The Replacement",
+      "template": "{This} replaced {expensive thing} for {price}.",
+      "example": "This $12 app replaced my $2,000 editor.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "Overstating it (if it was 60%, say 60%).",
+      "match": [
+        "\\breplaced (my|our|a|an|the)\\b",
+        "\\binstead of paying\\b"
+      ],
+      "on_screen": "$2,000 -> $12"
+    },
+    {
+      "id": "SF-05",
+      "name": "Time Collapse",
+      "template": "This used to take me {long}. It now takes {short}.",
+      "example": "This used to take me 5 hours. It now takes 20 minutes.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "An unbelievable ratio.",
+      "match": [
+        "\\bused to take\\b|\\bnow (it )?(only )?takes?\\b|\\btakes? (me )?\\d+\\s*(sec|second|min|minute|hour|hr)"
+      ],
+      "on_screen": "5 HOURS -> 20 MIN"
+    },
+    {
+      "id": "SF-06",
+      "name": "The Receipt",
+      "template": "I {did thing} for {N days}. Here are the actual numbers.",
+      "example": "I posted a reel a day for 30 days. Here are the actual numbers.",
+      "best_for": "follows; needs the screen recording",
+      "goal": "follows",
+      "trap": "No screen recording of the numbers.",
+      "match": [
+        "\\bhere are the (actual|real) numbers\\b",
+        "\\bi \\w+[^.\\n]{0,40} for \\d+ (days|weeks)\\b"
+      ]
+    },
+    {
+      "id": "SF-07",
+      "name": "Wrong Way, Right Way",
+      "template": "You are doing {thing} wrong, and it is not your fault.",
+      "example": "You are filming hooks wrong, and it is not your fault.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "Skipping the absolution.",
+      "match": [
+        "\\byou('re| are) doing [\\w ]{1,30} wrong\\b",
+        "\\bnot your fault\\b"
+      ]
+    },
+    {
+      "id": "SF-08",
+      "name": "Insider Leak",
+      "template": "I spent {N years} {inside}. Here is what we never said out loud.",
+      "example": "I spent 6 years inside a hiring team. Here is what we never said out loud.",
+      "best_for": "follows; the years must be real",
+      "goal": "follows",
+      "trap": "Years that are not real.",
+      "match": [
+        "\\bi spent \\d+ years\\b",
+        "\\bwhat we never said\\b"
+      ]
+    },
+    {
+      "id": "SF-09",
+      "name": "The Steal",
+      "template": "Steal this {artifact}. It took me {time}.",
+      "example": "Steal this 3-line prompt. It took me a month to get right.",
+      "best_for": "saves and sends",
+      "goal": "saves",
+      "trap": "The artifact is not on screen.",
+      "match": [
+        "\\bsteal (this|my)\\b",
+        "\\bit took me\\b"
+      ]
+    },
+    {
+      "id": "SF-10",
+      "name": "If This, Then Watch",
+      "template": "If you {specific situation}, this {short time} fixes it.",
+      "example": "If your reels die at second 3, this 20-second fix is for you.",
+      "best_for": "watch",
+      "goal": "watch",
+      "trap": "The situation is too broad.",
+      "match": [
+        "^\\s*if (you|your)\\b[^.\\n]*\\b(this|watch)\\b",
+        "\\bfixes it\\b"
+      ]
+    },
+    {
+      "id": "SF-11",
+      "name": "Numbered With A Favourite",
+      "template": "{N} {things} that {outcome}. Number {k} is the one nobody uses.",
+      "example": "5 shortcuts that halve editing time. Number 4 is the one nobody uses.",
+      "best_for": "saves; keep N at 7 or under",
+      "goal": "saves",
+      "trap": "N over 7.",
+      "match": [
+        "\\bnumber (\\d+|one|two|three|four|five|six|seven) is\\b",
+        "\\bthe one nobody uses\\b"
+      ]
+    },
+    {
+      "id": "SF-12",
+      "name": "The Objection",
+      "template": "\"{verbatim objection}.\" Fine. Here is the version that works anyway.",
+      "example": "\"I don't have time to film.\" Fine. Here is the version that works anyway.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "An objection nobody raised.",
+      "match": [
+        "[\"”]\\.?\\s*fine\\b",
+        "\\bworks anyway\\b"
+      ]
+    },
+    {
+      "id": "SF-13",
+      "name": "Before And After, On Screen",
+      "template": "{Before state, shown}. {After state, shown}. One change.",
+      "example": "This was my thumbnail. This is my thumbnail now.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "More than one lever.",
+      "match": [
+        "\\bbefore\\b[^.\\n]*\\bafter\\b",
+        "\\bthis was\\b[^.\\n]*\\bthis is\\b"
+      ]
+    },
+    {
+      "id": "SF-14",
+      "name": "The Callout",
+      "template": "{Specific group}, this is the one you have been ignoring.",
+      "example": "Freelance designers, this is the one you have been ignoring.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "'Entrepreneurs' is not a group.",
+      "match": [
+        "\\bthis is the one you('ve| have) been ignoring\\b",
+        "^\\s*[a-z][a-z ]{3,40},\\s*this (one )?is for you\\b"
+      ]
+    },
+    {
+      "id": "SF-15",
+      "name": "The Flop Record",
+      "template": "My first {N} {attempts} did nothing. Here is what changed on {N+1}.",
+      "example": "My first 40 reels did nothing. Here is what changed on 41.",
+      "best_for": "follows",
+      "goal": "follows",
+      "trap": "Inventing the count.",
+      "match": [
+        "\\bmy first \\d+ \\w+ (did nothing|flopped|failed|got nothing)\\b",
+        "\\bwhat changed on\\b"
+      ]
+    },
+    {
+      "id": "SF-16",
+      "name": "The Verbatim Question",
+      "template": "\"{question exactly as asked}\" - I get this every week.",
+      "example": "\"how do u get ur first client\" - I get this every week.",
+      "best_for": "comments and search; keep their typos",
+      "goal": "comments",
+      "trap": "A question nobody asked.",
+      "match": [
+        "^\\s*[\"“][^\"”]+\\?[\"”]",
+        "\\bi get (this|asked this) (every|all the)\\b"
+      ]
+    },
+    {
+      "id": "SF-17",
+      "name": "Head To Head",
+      "template": "{A} versus {B}. I ran both for {time}...",
+      "example": "Notion versus a paper notebook. I ran both for a month.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "No winner picked.",
+      "match": [
+        "\\bversus\\b",
+        "\\bvs\\.?\\b",
+        "\\bi ran both\\b"
+      ]
+    },
+    {
+      "id": "SF-18",
+      "name": "Cold Open Demo",
+      "template": "Watch what this does.",
+      "example": "Watch what this does to a 2-hour transcript.",
+      "best_for": "watch; start mid-action",
+      "goal": "watch",
+      "trap": "A static first frame.",
+      "match": [
+        "^\\s*watch (what|this)\\b"
+      ]
+    },
+    {
+      "id": "SF-19",
+      "name": "The Deadline",
+      "template": "{Thing} changes on {date}.",
+      "example": "{Real policy} changes on {real date}.",
+      "best_for": "clicks; only real urgency",
+      "goal": "clicks",
+      "trap": "Fake urgency.",
+      "match": [
+        "\\bchanges on\\b",
+        "\\bdeadline\\b",
+        "\\bstarting (on |next )?(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b"
+      ]
+    },
+    {
+      "id": "SF-20",
+      "name": "Permission",
+      "template": "You do not need {the thing}.",
+      "example": "You do not need a camera to start.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "The second half must replace what it removed.",
+      "match": [
+        "\\byou (do not|don'?t) need\\b"
+      ]
+    },
+    {
+      "id": "SF-21",
+      "name": "Mid-Sentence Start",
+      "template": "...and that is when {turn}.",
+      "example": "...and that is when the client stopped replying.",
+      "best_for": "watch; deliver the setup by second 8",
+      "goal": "watch",
+      "trap": "Setup arrives after second 8.",
+      "match": [
+        "^\\s*(\\.\\.\\.|…)",
+        "^\\s*and (that'?s|that is) when\\b"
+      ]
+    },
+    {
+      "id": "SF-22",
+      "name": "Contrarian Flip",
+      "template": "{Inverted saying}.",
+      "example": "Nice guys finish first.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "A flip you cannot defend.",
+      "match": [
+        "\\b(is|are) (overrated|a myth|backwards)\\b",
+        "\\bfinish first\\b"
+      ]
+    },
+    {
+      "id": "SF-23",
+      "name": "The Statistic",
+      "template": "{N}% of {group} {fact}.",
+      "example": "{N}% of {group} {fact} ({source named on screen}).",
+      "best_for": "trust; must be sourced in the video",
+      "goal": "saves",
+      "trap": "Unsourced figure.",
+      "match": [
+        "^\\s*\\d[\\d,.]*\\s?%|\\b\\d[\\d,.]*\\s?%\\s+of\\b"
+      ]
+    },
+    {
+      "id": "SF-24",
+      "name": "The Reveal",
+      "template": "This is the new {thing}.",
+      "example": "This is the new resume.",
+      "best_for": "shares; needs a stake",
+      "goal": "shares",
+      "trap": "No stake.",
+      "match": [
+        "\\bthis is the new\\b",
+        "\\bmeet the new\\b"
+      ]
+    },
+    {
+      "id": "SF-25",
+      "name": "Someone Else's Result",
+      "template": "There was one {person} who {outcome} in {time}.",
+      "example": "There was one {named creator} who {real outcome} in {time}.",
+      "best_for": "shares; name it and link it",
+      "goal": "shares",
+      "trap": "Unnamed or unlinked result.",
+      "match": [
+        "\\bthere was (one|this) \\w+ who\\b"
+      ]
+    },
+    {
+      "id": "SF-26",
+      "name": "The Superlative",
+      "template": "The {fastest/only} {thing} is {answer}.",
+      "example": "The fastest way to learn SQL is to break a real database.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "A soft answer ('consistency').",
+      "match": [
+        "\\bthe (fastest|only|easiest|cheapest|simplest|quickest) (way|thing|tool|method|fix)\\b"
+      ]
+    }
+  ]
+}

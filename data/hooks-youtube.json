@@ -1,0 +1,358 @@
+{
+  "version": "2.0.0",
+  "platform": "youtube",
+  "source": "Jakeschincariol/youtube-agent-skill yt-script hooks.json (YT-01..21, source order); pairing field added (craft, ours)",
+  "evidence": "craft; example numbers in the source are illustrative, never facts",
+  "rules": [
+    "Confirm the title in the first sentence ('a hook that ignores its own title is why people leave at 0:08').",
+    "One idea.",
+    "Specific beats big.",
+    "If an artifact is promised, show it inside 20 s.",
+    "Never open with who you are.",
+    "Match the opener to the title formula (pairing field).",
+    "Examples show shape only; never reuse their numbers."
+  ],
+  "classify_order": [
+    "YT-15",
+    "YT-11",
+    "YT-12",
+    "YT-07",
+    "YT-02",
+    "YT-10",
+    "YT-01",
+    "YT-18",
+    "YT-19",
+    "YT-20",
+    "YT-08",
+    "YT-05",
+    "YT-16",
+    "YT-04",
+    "YT-03",
+    "YT-13",
+    "YT-06",
+    "YT-17",
+    "YT-21",
+    "YT-14",
+    "YT-09"
+  ],
+  "hooks": [
+    {
+      "id": "YT-01",
+      "name": "The Statistic",
+      "template": "{Number the viewer did not know}, said flat. {Consequence}.",
+      "example": "97% of the people who start a channel quit before video 30. Here is what the other 3% do differently.",
+      "best_for": "openers; say the source aloud",
+      "goal": "watch",
+      "trap": "Vague or unverifiable number.",
+      "match": [
+        "\\b\\d+(\\.\\d+)?\\s?%",
+        "\\b\\d+ (out of|in) \\d+\\b",
+        "\\b\\d{2,}(,\\d{3})+\\b"
+      ],
+      "pairing": "title: '{N}% of {group} {fact}'; thumb: the number alone"
+    },
+    {
+      "id": "YT-02",
+      "name": "Someone Else's Result",
+      "template": "{Named person}'s outcome, then the mechanism.",
+      "example": "This channel went from 400 subscribers to 200,000 in seven months on one format. I mapped it.",
+      "best_for": "teardown openers",
+      "goal": "watch",
+      "trap": "Inventing it; if you cannot name it, use another formula.",
+      "match": [
+        "\\bthis (channel|guy|creator|account)\\b",
+        "\\bwent from .* to\\b",
+        "\\bin (a|one|two|three|\\d+) (week|month|year)s?\\b"
+      ],
+      "pairing": "title: '{Name} went from {A} to {B}'; thumb: before -> after figure"
+    },
+    {
+      "id": "YT-03",
+      "name": "The Mistake",
+      "template": "{Error the viewer is making now}. {It is not the obvious cause}.",
+      "example": "Your first 30 seconds are why nobody finishes your videos. It is not the topic.",
+      "best_for": "retention-problem videos",
+      "goal": "watch",
+      "trap": "Must be common and checkable in 1 s.",
+      "match": [
+        "\\byou('re| are) (probably |still )?(doing|making)\\b",
+        "\\bthe (mistake|reason) (everyone|most people|nobody)\\b",
+        "\\bstop (doing )?\\b"
+      ],
+      "pairing": "title: 'Why your {thing} {fails}'; thumb: the wrong thing, crossed out"
+    },
+    {
+      "id": "YT-04",
+      "name": "Contrarian Flip",
+      "template": "{Accepted advice}. Then reject it with evidence.",
+      "example": "Everyone says post daily. I posted once a week for a year and tripled the channel.",
+      "best_for": "opinion videos",
+      "goal": "watch",
+      "trap": "Evidence must arrive within the next 15 s.",
+      "match": [
+        "\\beveryone (says|thinks|tells you)\\b",
+        "\\bis (actually )?wrong\\b",
+        "\\bnobody (tells|talks about)\\b"
+      ],
+      "pairing": "title: '{Advice} is wrong'; thumb: the advice, struck through"
+    },
+    {
+      "id": "YT-05",
+      "name": "The Reveal",
+      "template": "Promise a specific thing shown on screen, then show it.",
+      "example": "I am going to show you the exact prompt, on screen, that wrote this video.",
+      "best_for": "tutorials",
+      "goal": "watch",
+      "trap": "Reveal at 8:00 = cliff at 1:00.",
+      "match": [
+        "\\bi('m| am) going to show you\\b",
+        "\\bhere('s| is) (the|exactly)\\b",
+        "\\bon screen\\b"
+      ],
+      "pairing": "title: 'The exact {artifact} that {outcome}'; thumb: the artifact"
+    },
+    {
+      "id": "YT-06",
+      "name": "The Superlative",
+      "template": "The {best/worst/fastest} {thing} in {category}.",
+      "example": "This is the fastest way to turn one long video into thirty Shorts.",
+      "best_for": "search titles",
+      "goal": "clicks",
+      "trap": "Earn it by naming what it beat.",
+      "match": [
+        "\\bthe (best|worst|fastest|easiest|only)\\b",
+        "\\bnumber one\\b"
+      ],
+      "pairing": "title: 'The fastest way to {outcome}'; thumb: the outcome, 2-3 words"
+    },
+    {
+      "id": "YT-07",
+      "name": "The Clock",
+      "template": "In the next {N} minutes you will have {payoff}.",
+      "example": "In the next six minutes you will have a working title, thumbnail and script.",
+      "best_for": "tutorials",
+      "goal": "watch",
+      "trap": "Must be true.",
+      "match": [
+        "\\bin (the next )?\\d+ (seconds|minutes|hours)\\b",
+        "\\bby the end of this video\\b",
+        "\\bunder \\d+\\b"
+      ],
+      "pairing": "title: '{Outcome} in {N} minutes'; thumb: the clock figure"
+    },
+    {
+      "id": "YT-08",
+      "name": "I Tried It",
+      "template": "I {tried/let/spent} {thing} for {time}. {Stated cost}.",
+      "example": "I let an AI run my channel for 30 days. I did not touch the uploads.",
+      "best_for": "experiments",
+      "goal": "watch",
+      "trap": "Needs a real cost.",
+      "match": [
+        "\\bI (tried|spent|tested|let|gave)\\b",
+        "\\bfor \\d+ (days|weeks|months)\\b",
+        "\\bso you don'?t have to\\b"
+      ],
+      "pairing": "title: 'I {did X} for {N} days'; thumb: face + the result"
+    },
+    {
+      "id": "YT-09",
+      "name": "The Question",
+      "template": "{The exact query the viewer typed}?",
+      "example": "Why do your videos die at 30 seconds when the topic is fine?",
+      "best_for": "search; pull the wording from comments",
+      "goal": "clicks",
+      "trap": "Not the viewer's actual question.",
+      "match": [
+        "^(why|how|what|when|should|can|do|does|is)\\b",
+        "\\?\\s*$"
+      ],
+      "pairing": "title: the query verbatim; thumb: the answer in 2-3 words"
+    },
+    {
+      "id": "YT-10",
+      "name": "The Before-After",
+      "template": "Two states, one cut.",
+      "example": "This was my thumbnail. This is my thumbnail now. Same video, four times the click-through.",
+      "best_for": "visual proof",
+      "goal": "watch",
+      "trap": "Needs a visual.",
+      "match": [
+        "\\bbefore\\b.*\\bafter\\b",
+        "\\bthis was\\b.*\\bthis is\\b",
+        "\\bused to\\b"
+      ],
+      "pairing": "title: '{A} -> {B}: what changed'; thumb: split before/after"
+    },
+    {
+      "id": "YT-11",
+      "name": "The Teardown",
+      "template": "Take a real thing apart: name what and how many.",
+      "example": "I pulled the nine most-viewed AI videos of the month and broke down what the titles share.",
+      "best_for": "analysis",
+      "goal": "watch",
+      "trap": "One example = anecdote.",
+      "match": [
+        "\\b(broke|break|breaking) (it )?down\\b",
+        "\\bteardown\\b",
+        "\\banalys(ed|is|e)\\b",
+        "\\bI pulled\\b"
+      ],
+      "pairing": "title: 'I analysed {N} {things}: {finding}'; thumb: the count"
+    },
+    {
+      "id": "YT-12",
+      "name": "The Stack",
+      "template": "{Tool A} plus {Tool B} gives you {outcome}.",
+      "example": "Claude plus your YouTube Studio export gives you next week's upload schedule in one prompt.",
+      "best_for": "tool tutorials",
+      "goal": "watch",
+      "trap": "Both must be nameable and the outcome must need both.",
+      "match": [
+        "\\b\\w+ (plus|\\+) \\w+\\b",
+        "\\bcombine\\b",
+        "\\btogether\\b"
+      ],
+      "pairing": "title: '{A} + {B} = {outcome}'; thumb: two logos"
+    },
+    {
+      "id": "YT-13",
+      "name": "The Warning",
+      "template": "{Cost the viewer is about to pay}.",
+      "example": "Do not upload another video until you check this one setting.",
+      "best_for": "urgent fixes; reserve it",
+      "goal": "watch",
+      "trap": "A small cost = a lie.",
+      "match": [
+        "\\bdo not\\b",
+        "\\bdon'?t (upload|post|publish|start)\\b",
+        "\\bbefore you\\b",
+        "\\bstop\\b"
+      ],
+      "pairing": "title: 'Don't {action} until you {check}'; thumb: warning word"
+    },
+    {
+      "id": "YT-14",
+      "name": "The List",
+      "template": "{Exact count} {things}, count in line 1.",
+      "example": "Seven things I would do differently if I started a channel in 2026.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "Items that do not differ in kind.",
+      "match": [
+        "^\\d+ \\w+",
+        "\\b(here are|these are) \\d+\\b"
+      ],
+      "pairing": "title: '{N} {things} {outcome}'; thumb: the number"
+    },
+    {
+      "id": "YT-15",
+      "name": "The Receipt",
+      "template": "Artifact first, explanation second.",
+      "example": "This is the analytics page. This video did 40% of the channel's watch time. Here is why.",
+      "best_for": "proof",
+      "goal": "watch",
+      "trap": "A real screenshot is required.",
+      "match": [
+        "\\bthis is (the|my)\\b",
+        "\\bscreenshot\\b",
+        "\\bproof\\b",
+        "\\breceipts?\\b"
+      ],
+      "pairing": "title: 'This {artifact} {result}'; thumb: the artifact"
+    },
+    {
+      "id": "YT-16",
+      "name": "The Insider",
+      "template": "Information from inside a system that almost nobody uses.",
+      "example": "YouTube tells you which videos are underperforming. Almost nobody opens the report.",
+      "best_for": "how-it-works",
+      "goal": "watch",
+      "trap": "No fake insider access.",
+      "match": [
+        "\\b(nobody|almost nobody|most people) (knows?|opens?|uses?)\\b",
+        "\\bhidden\\b",
+        "\\bburied\\b"
+      ],
+      "pairing": "title: 'The hidden {report} that {outcome}'; thumb: the setting"
+    },
+    {
+      "id": "YT-17",
+      "name": "The Impossible",
+      "template": "Sounds untrue, then prove it.",
+      "example": "You can write, title, thumbnail and schedule a week of videos without opening a single editor.",
+      "best_for": "demos",
+      "goal": "watch",
+      "trap": "Proof must land within 20 s.",
+      "match": [
+        "\\bwithout\\b",
+        "\\bnever\\b",
+        "\\bin one\\b",
+        "\\bzero\\b"
+      ],
+      "pairing": "title: '{Outcome} without {expected tool}'; thumb: the missing thing, crossed out"
+    },
+    {
+      "id": "YT-18",
+      "name": "The Comparison",
+      "template": "Two named options, one winner.",
+      "example": "I wrote the same video three ways. One of them held 62% and the other two did not.",
+      "best_for": "comparisons",
+      "goal": "watch",
+      "trap": "Say the loser; no loser = advert.",
+      "match": [
+        "\\bvs\\.?\\b",
+        "\\bversus\\b",
+        "\\bwhich (one )?(is|wins)\\b",
+        "\\bsame .* (three|two) ways\\b"
+      ],
+      "pairing": "title: '{A} vs {B}: {verdict}'; thumb: both, winner marked"
+    },
+    {
+      "id": "YT-19",
+      "name": "The Origin",
+      "template": "Where a result came from.",
+      "example": "Every video on this channel starts in the same 12-line file. Here it is.",
+      "best_for": "once per channel",
+      "goal": "follows",
+      "trap": "Using it more than once.",
+      "match": [
+        "\\bevery (video|post) .* starts\\b",
+        "\\bit all (starts|started)\\b",
+        "\\bthe (real )?reason\\b"
+      ],
+      "pairing": "title: 'The {file} behind every {thing}'; thumb: the file"
+    },
+    {
+      "id": "YT-20",
+      "name": "The Deadline",
+      "template": "Something changes on a date.",
+      "example": "The old description format stops mattering this month. Here is what replaces it.",
+      "best_for": "news; real, checkable date only",
+      "goal": "clicks",
+      "trap": "Fastest trust loss if the date is not real.",
+      "match": [
+        "\\b(this|next) (week|month|year)\\b",
+        "\\bis changing\\b",
+        "\\bno longer\\b",
+        "\\bas of\\b"
+      ],
+      "pairing": "title: '{Thing} changes {date}: what to do'; thumb: the date"
+    },
+    {
+      "id": "YT-21",
+      "name": "The Direct Address",
+      "template": "Name the exact viewer in the first six words.",
+      "example": "If you have under a thousand subscribers, this is the only video you need this week.",
+      "best_for": "narrow audiences",
+      "goal": "watch",
+      "trap": "A broad viewer description; narrow beats broad.",
+      "match": [
+        "^if you\\b",
+        "\\bfor (anyone|everyone|people) who\\b",
+        "\\byou specifically\\b"
+      ],
+      "pairing": "title: 'If you {situation}, {promise}'; thumb: the situation in 3 words"
+    }
+  ]
+}

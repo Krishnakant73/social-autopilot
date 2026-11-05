@@ -1,0 +1,245 @@
+{
+  "version": "2.0.0",
+  "note": "Limits marked official come from platform docs/API (re-verify quarterly). Working ranges and folds are craft. Caps are the skill's own daily caps, matched to references/engagement.md section 6; null = no numeric cap (still pace by hand).",
+  "timezone": "Asia/Kolkata",
+  "linkedin": {
+    "label": "LinkedIn",
+    "maxChars": 3000,
+    "commentMaxChars": 1250,
+    "fold": 140,
+    "foldDesktop": 210,
+    "idealMin": 900,
+    "idealMax": 1300,
+    "maxHashtags": 3,
+    "linkInBody": "warn",
+    "lineBreaks": true,
+    "publish": "official-api",
+    "caps": {
+      "post": 2,
+      "comment": 30,
+      "reply": null,
+      "dm": 5,
+      "connect": 10
+    },
+    "capsNote": "post: 1/day default, max 2. comment = on others' posts (10-20 typical, max 30). reply = under own posts, no numeric cap.",
+    "evidence": {
+      "maxChars": "official (Posts API / composer)",
+      "fold": "craft (UI observation, device-dependent)",
+      "ideal": "craft"
+    },
+    "video": {
+      "aspects": [
+        "4:5",
+        "9:16",
+        "1:1",
+        "16:9"
+      ],
+      "default": "4:5 1080x1350 (or 9:16 1080x1920)",
+      "minSec": 3,
+      "maxSec": 1800,
+      "maxMB": 500,
+      "container": "mp4",
+      "feedIdealSec": [
+        30,
+        90
+      ],
+      "wps": 2.5,
+      "hookMaxSec": 3,
+      "beatMaxSec": 4,
+      "captionsBurnedIn": true,
+      "evidence": "official: 3 s-30 min, 500 MB mp4 via API (Publora fixture 2026-03-11, re-verify); craft: 30-90 s feed, captions on (most watch muted)"
+    },
+    "document": {
+      "maxMB": 100,
+      "maxPages": 300,
+      "size": "1080x1350",
+      "slides": [
+        8,
+        12
+      ],
+      "evidence": "official limits; slide range craft"
+    }
+  },
+  "x": {
+    "label": "X",
+    "maxChars": 280,
+    "premiumMaxChars": 25000,
+    "fold": 280,
+    "idealMin": 70,
+    "idealMax": 260,
+    "maxHashtags": 1,
+    "linkInBody": "warn",
+    "lineBreaks": false,
+    "publish": "official-api",
+    "urlWeight": 23,
+    "bioMax": 160,
+    "displayNameMax": 50,
+    "hookMaxWeighted": 110,
+    "caps": {
+      "post": 5,
+      "reply": 40,
+      "dm": 5,
+      "follow": 20
+    },
+    "capsNote": "post: 3-5/day, a thread counts 1. reply = on others' posts (10-30 typical, max 50). Replies under own posts: no numeric cap.",
+    "evidence": {
+      "maxChars": "official (twitter-text v3 weighting: URL 23, emoji/CJK 2)",
+      "fold": "official (Show more after 280 on long posts)"
+    },
+    "video": {
+      "aspects": [
+        "16:9",
+        "1:1",
+        "9:16"
+      ],
+      "maxSec": 140,
+      "wps": 2.5,
+      "hookMaxSec": 3,
+      "beatMaxSec": 4,
+      "evidence": "official: 2:20 for non-Premium uploads (re-verify)"
+    }
+  },
+  "instagram": {
+    "label": "Instagram",
+    "maxChars": 2200,
+    "fold": 125,
+    "idealMin": 150,
+    "idealMax": 900,
+    "maxHashtags": 5,
+    "linkInBody": "dead",
+    "lineBreaks": true,
+    "publish": "manual",
+    "bioMax": 150,
+    "maxMentions": 20,
+    "emojiPer100Max": 4,
+    "fillerTags": [
+      "#viral",
+      "#fyp",
+      "#explore",
+      "#explorepage",
+      "#foryou",
+      "#foryoupage",
+      "#trending",
+      "#instagood",
+      "#love",
+      "#follow",
+      "#like4like",
+      "#reels",
+      "#reelsinstagram",
+      "#viralreels",
+      "#instadaily"
+    ],
+    "caps": {
+      "post": 1,
+      "comment": 20,
+      "reply": null,
+      "dm": 5,
+      "follow": 20
+    },
+    "capsNote": "post: 1 feed post/day plus stories. comment = on others' posts (10-20).",
+    "evidence": {
+      "maxHashtags": "official (5 per post since 18 Dec 2025, @Creators)",
+      "fold": "craft (~125, device-dependent)"
+    },
+    "video": {
+      "aspects": [
+        "9:16"
+      ],
+      "size": "1080x1920",
+      "gridCrop": "3:4 1080x1440",
+      "minSec": 3,
+      "maxSec": 900,
+      "recommendedMaxSec": 180,
+      "maxMB": 300,
+      "safeZone": {
+        "top": 0.14,
+        "bottom": 0.2,
+        "right": 0.12
+      },
+      "minTextPx": 28,
+      "wps": 2.5,
+      "wpsRange": [
+        2.2,
+        2.75
+      ],
+      "hookMaxSec": 3,
+      "beatMaxSec": 4,
+      "evidence": "official: 3 s-15 min via API, 300 MB; craft/convention: safe zones, >3 min not recommended to non-followers, 2.5 words/s"
+    },
+    "carousel": {
+      "min": 2,
+      "max": 10,
+      "appMax": 20,
+      "size": "1080x1350"
+    }
+  },
+  "youtube": {
+    "label": "YouTube",
+    "maxChars": 5000,
+    "fold": 150,
+    "idealMin": 200,
+    "idealMax": 2500,
+    "maxHashtags": 5,
+    "hashtagIgnoreAbove": 15,
+    "linkInBody": "ok",
+    "lineBreaks": true,
+    "publish": "manual",
+    "titleMax": 100,
+    "titleIdeal": 60,
+    "titleDesktop": 60,
+    "titleMobile": 40,
+    "thumbMaxWords": 3,
+    "maxCapsWords": 2,
+    "tagsMax": 15,
+    "tagsMaxChars": 500,
+    "replyMaxWords": 30,
+    "caps": {
+      "upload": 1,
+      "comment": 10,
+      "reply": null,
+      "community": 2
+    },
+    "capsNote": "upload 1/day. comment = on others' videos (5-10). community: not in engagement.md table, kept at v1 value 2.",
+    "evidence": {
+      "titleMax": "official",
+      "titleDesktop": "craft (~60 search cut)",
+      "titleMobile": "craft (~40 home feed, device-dependent)",
+      "hashtags": "official (>15 = all ignored)",
+      "chapters": "official (0:00 first, >=3, >=10 s each)"
+    },
+    "video": {
+      "shorts": {
+        "aspects": [
+          "9:16"
+        ],
+        "size": "1080x1920",
+        "maxSec": 180,
+        "idealSec": [
+          20,
+          55
+        ],
+        "safeZone": {
+          "top": 0.14,
+          "bottom": 0.2,
+          "right": 0.12
+        },
+        "wps": 2.5,
+        "hookMaxSec": 3,
+        "beatMaxSec": 4
+      },
+      "longform": {
+        "aspects": [
+          "16:9"
+        ],
+        "size": "1920x1080",
+        "thumbnail": "1280x720",
+        "wpm": 150,
+        "wpmRange": [
+          130,
+          165
+        ]
+      },
+      "evidence": "official: Shorts up to 3 min (Oct 2024); craft: 150 wpm, safe zones"
+    }
+  }
+}

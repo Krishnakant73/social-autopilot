@@ -1,0 +1,410 @@
+{
+  "version": "2.0.0",
+  "platform": "x",
+  "source": "Jakeschincariol/x-agent-skill x-post hooks.json (X-01..21, source order and classify_order); X-22+ from sergebulaev/x-skills and liftli/x",
+  "evidence": "craft; performance notes in best_for are folklore unless labelled",
+  "rules": [
+    "Line 1 must work if it is the only line read.",
+    "One idea.",
+    "Numbers beat adjectives.",
+    "No label hook ('A thread 🧵', 'Hot take:').",
+    "No link, hashtag or @ in line 1.",
+    "If the hook would work with anybody else's name on it, it is not the user's hook.",
+    "No formula more than 2x per week.",
+    "Examples show shape only; never reuse their numbers."
+  ],
+  "classify_order": [
+    "X-03",
+    "X-07",
+    "X-14",
+    "X-08",
+    "X-09",
+    "X-06",
+    "X-05",
+    "X-16",
+    "X-15",
+    "X-02",
+    "X-04",
+    "X-13",
+    "X-11",
+    "X-10",
+    "X-17",
+    "X-22",
+    "X-25",
+    "X-26",
+    "X-27",
+    "X-24",
+    "X-23",
+    "X-28",
+    "X-01",
+    "X-18",
+    "X-19",
+    "X-12",
+    "X-20",
+    "X-21"
+  ],
+  "hooks": [
+    {
+      "id": "X-01",
+      "name": "Contrarian Take",
+      "template": "Everyone says {common advice}. {Specific experience} says otherwise.",
+      "example": "Everyone says post three times a day. My best month on here was eight posts.",
+      "best_for": "replies (claimed highest reply rate: folklore)",
+      "goal": "comments",
+      "trap": "The belief must be genuinely common.",
+      "match": [
+        "\\b(unpopular opinion|hot take|controversial|everyone (says|thinks|tells you|is wrong)|most people (think|believe|say)|stop (telling|saying)|is (overrated|a lie|dead)|nobody wants to hear)\\b"
+      ]
+    },
+    {
+      "id": "X-02",
+      "name": "Number Reveal",
+      "template": "I {did thing} for {N} {days/weeks}. Here's what actually happened.",
+      "example": "I posted every day for 30 days. Here's what actually happened.",
+      "best_for": "experiments",
+      "goal": "saves",
+      "trap": "The result must land in line 1-2, not post 7.",
+      "match": [
+        "\\bi (did|posted|sent|ran|tried|tested|tracked|spent|wrote|built|shipped)\\b[^.!?\\n]{0,60}\\b(for|in) \\d+ (days?|weeks?|months?)\\b",
+        "\\bhere'?s what (actually )?happened\\b"
+      ]
+    },
+    {
+      "id": "X-03",
+      "name": "Cost Confession",
+      "template": "{Specific amount} is what {one mistake} cost me.",
+      "example": "$18,000 is what one missing clause cost me.",
+      "best_for": "trust, fast",
+      "goal": "follows",
+      "trap": "A fake cost ('my peace of mind').",
+      "match": [
+        "\\$\\s?\\d[\\d,.]*k?\\s+(is|was) what\\b|\\bcost (me|us|him|her|them)\\b|\\blost\\b[^.!?\\n]{0,20}\\$\\s?\\d"
+      ]
+    },
+    {
+      "id": "X-04",
+      "name": "Before/After",
+      "template": "{Time} ago I {low}. Today I {high}. One thing changed.",
+      "example": "A year ago I {low state}. Today I {high state}. One thing changed.",
+      "best_for": "proof of distance",
+      "goal": "follows",
+      "trap": "Name one lever, not three.",
+      "match": [
+        "\\bago,? (i|we)\\b[^.!?\\n]*[.!]\\s*(today|now)\\b",
+        "\\bone thing changed\\b"
+      ]
+    },
+    {
+      "id": "X-05",
+      "name": "The List",
+      "template": "{N} {things} {specific audience} should {do/know}:",
+      "example": "5 prompts every solo founder should keep in a notes file:",
+      "best_for": "bookmarks",
+      "goal": "saves",
+      "trap": "N over 10 is unbelievable.",
+      "match": [
+        "^\\s*\\d+\\s+[^:\\n]{3,80}:\\s*$",
+        "^\\s*\\d+\\s+(things|lessons|tools|mistakes|ways|rules|tips|prompts|books|habits)\\b"
+      ]
+    },
+    {
+      "id": "X-06",
+      "name": "Nobody Tells You",
+      "template": "Nobody tells you {true, specific, slightly uncomfortable thing}.",
+      "example": "Nobody tells you the second product is harder to sell than the first.",
+      "best_for": "replies and bookmarks",
+      "goal": "comments",
+      "trap": "Following it with common knowledge.",
+      "match": [
+        "\\b(nobody|no one|no-one) (tells|told|talks about|warns|warned|mentions|explains)\\b"
+      ]
+    },
+    {
+      "id": "X-07",
+      "name": "The Hottest New",
+      "template": "The hottest new {familiar category} is {unexpected thing}.",
+      "example": "The hottest new programming language is English.",
+      "best_for": "reframing (claimed most reposted shape on AI Twitter: folklore)",
+      "goal": "shares",
+      "trap": "Must be defensible.",
+      "match": [
+        "\\bthe hottest new\\b",
+        "\\bis the new\\b"
+      ]
+    },
+    {
+      "id": "X-08",
+      "name": "Credential Setup",
+      "template": "I'm {name} and I {built/run}. Here's my exact setup.",
+      "example": "I'm {name} and I run {real thing}. Here's my exact setup.",
+      "best_for": "follows",
+      "goal": "follows",
+      "trap": "The credential must be real and checkable.",
+      "match": [
+        "\\bi'?m \\w+[^.\\n]{0,40}\\band i (built|run|founded|make|ship|wrote)\\b",
+        "\\bhere'?s my (exact )?setup\\b"
+      ]
+    },
+    {
+      "id": "X-09",
+      "name": "Time Anchor",
+      "template": "{Task} used to take me {long}. It now takes {short}.",
+      "example": "Writing a week of posts used to take me 5 hours. It now takes 20 minutes.",
+      "best_for": "how-to; the ratio persuades",
+      "goal": "saves",
+      "trap": "An unbelievable ratio reads as an ad (5h->20min ok, 5h->5s not).",
+      "match": [
+        "\\bused to take\\b",
+        "\\b(it )?now takes\\b"
+      ]
+    },
+    {
+      "id": "X-10",
+      "name": "Someone Else's Result",
+      "template": "{Specific person} {did surprising thing} with {approach}.",
+      "example": "{Named person} {real result} with {approach}. Link in reply.",
+      "best_for": "reposts; only what you saw",
+      "goal": "shares",
+      "trap": "Unnamed or unlinked result.",
+      "match": [
+        "\\b(this|one) (founder|creator|guy|team|channel|account|person|company|dev|developer)\\b[^.\\n]{0,40}\\b(did|made|built|grew|went|hit|shipped)\\b"
+      ]
+    },
+    {
+      "id": "X-11",
+      "name": "Prediction",
+      "template": "In {timeframe}, {specific change} will {happen}. {Why}.",
+      "example": "In 12 months, most coding interviews will allow AI. The take-home is already dead.",
+      "best_for": "replies",
+      "goal": "comments",
+      "trap": "Must be dated and falsifiable.",
+      "match": [
+        "\\bin (\\d+|two|three|five|ten|six|twelve) (months?|years?|weeks?)\\b[^.\\n]*\\bwill\\b",
+        "\\bby 20\\d\\d\\b[^.\\n]*\\bwill\\b",
+        "\\bprediction\\b"
+      ]
+    },
+    {
+      "id": "X-12",
+      "name": "Command",
+      "template": "{Imperative} {specific thing}. {Reason}.",
+      "example": "Delete the first line of every post you draft. It's almost always throat-clearing.",
+      "best_for": "bookmarks; the reason is the post",
+      "goal": "saves",
+      "trap": "No reason given.",
+      "match": [
+        "^\\s*(stop|never|don'?t|quit|delete|steal|copy|bookmark|save|read|use|try|send|go|write|build|start|unfollow|mute)\\b"
+      ]
+    },
+    {
+      "id": "X-13",
+      "name": "Statistic",
+      "template": "{Surprising figure} of {group} {do}. {Meaning}.",
+      "example": "3 of my last 40 posts brought in 71% of my new followers.",
+      "best_for": "trust",
+      "goal": "saves",
+      "trap": "An unsourced stat.",
+      "match": [
+        "^\\s*\\d[\\d,.]*\\s?%",
+        "\\b\\d+ of (my|our|the) (last )?\\d+\\b",
+        "\\b\\d[\\d,.]*\\s?% of\\b"
+      ]
+    },
+    {
+      "id": "X-14",
+      "name": "Coinage",
+      "template": "There's a new kind of {activity} I call \"{name}\". {What it is}.",
+      "example": "There's a new kind of debugging I call \"vibe archaeology\".",
+      "best_for": "follows",
+      "goal": "follows",
+      "trap": "Naming something that already has a name.",
+      "match": [
+        "\\bi call\\b",
+        "\\bcall it\\b",
+        "\\ba new kind of\\b"
+      ]
+    },
+    {
+      "id": "X-15",
+      "name": "Launch",
+      "template": "{New thing} just {shipped}. {The one detail}.",
+      "example": "{Product} just shipped {feature}. The one detail that matters: {detail}.",
+      "best_for": "news; early beats thorough",
+      "goal": "clicks",
+      "trap": "Fake BREAKING.",
+      "match": [
+        "\\bjust (shipped|launched|dropped|released|went live)\\b",
+        "\\bis (now )?live\\b",
+        "\\bout now\\b"
+      ]
+    },
+    {
+      "id": "X-16",
+      "name": "Thread Promise",
+      "template": "I {spent N hours doing X}. Here's everything I learned:",
+      "example": "I spent 40 hours reading model release notes. Here's everything I learned:",
+      "best_for": "bookmarks",
+      "goal": "saves",
+      "trap": "'A thread 🧵' as the hook.",
+      "match": [
+        "\\bhere'?s everything (i|we) learned\\b",
+        "\\bi spent \\d+ (hours?|days?|weeks?)\\b"
+      ]
+    },
+    {
+      "id": "X-17",
+      "name": "Regret",
+      "template": "I wasted {time} on {thing}. {Instead}.",
+      "example": "I wasted a year on a course. A weekend of building taught me more.",
+      "best_for": "replies",
+      "goal": "comments",
+      "trap": "A secret brag.",
+      "match": [
+        "\\b(biggest|worst|dumbest|costliest|only) (mistake|regret)\\b|\\bi (wasted|regret|screwed up|messed up|wish i('d| had))\\b"
+      ]
+    },
+    {
+      "id": "X-18",
+      "name": "Comparison",
+      "template": "{Expensive/known} vs {cheap/new}. {Which won, by how much}.",
+      "example": "$20 tool vs $2,000 agency. The tool won on speed, lost on taste.",
+      "best_for": "reposts",
+      "goal": "shares",
+      "trap": "A rigged fight.",
+      "match": [
+        "\\bvs\\.?\\b|\\bversus\\b|\\binstead of\\b|\\bbetter than\\b|\\breplaced (my|our|a)\\b"
+      ]
+    },
+    {
+      "id": "X-19",
+      "name": "Field Report",
+      "template": "I've been {spending time with group} lately. {What you noticed}.",
+      "example": "I've been talking to new grads lately. None of them want to be managers.",
+      "best_for": "follows",
+      "goal": "follows",
+      "trap": "No actual observation.",
+      "match": [
+        "\\bi'?ve been (spending|talking|hanging|working|interviewing|reading)\\b",
+        "\\blately\\b"
+      ]
+    },
+    {
+      "id": "X-20",
+      "name": "Open Question",
+      "template": "{Question only your audience can answer}?",
+      "example": "What's the one $20/month tool you'd cancel last?",
+      "best_for": "replies",
+      "goal": "comments",
+      "trap": "'Thoughts?'",
+      "match": [
+        "^[^.!\\n]{8,140}\\?\\s*$"
+      ]
+    },
+    {
+      "id": "X-21",
+      "name": "One-Liner",
+      "template": "{One true short sentence}",
+      "example": "Most meetings are status updates with chairs.",
+      "best_for": "reposts",
+      "goal": "shares",
+      "trap": "Must be a disagreeable claim, not a vibe.",
+      "match": [
+        "^\\s*(?:\\S+\\s+){2,13}\\S+\\s*$"
+      ]
+    },
+    {
+      "id": "X-22",
+      "name": "Build-in-Public Confession",
+      "template": "{Time marker}: {project} did {real metric}.\n\nHere is the part nobody tweets: {honest cost/mistake}.",
+      "example": "Month 3: the side project made {real number}. Here is the part nobody tweets: {real cost}.",
+      "best_for": "replies",
+      "goal": "comments",
+      "trap": "The confession is a humblebrag.",
+      "match": [
+        "\\bthe part nobody (tweets|posts|shares|mentions)\\b"
+      ],
+      "source": "sergebulaev/x-skills X3"
+    },
+    {
+      "id": "X-23",
+      "name": "Quote-Tweet Value-Add",
+      "template": "{One line that reframes or respectfully challenges}.\n\n{The missing nuance / counter-example}.",
+      "example": "True for teams of 50. At 5 people the opposite holds: {reason}.",
+      "best_for": "reposts",
+      "goal": "shares",
+      "trap": "Dunking instead of adding.",
+      "match": [
+        "\\bthe missing (piece|nuance)\\b",
+        "\\btrue for [^.\\n]{2,40}\\.\\s*(at|for) \\w+"
+      ],
+      "source": "sergebulaev/x-skills X4"
+    },
+    {
+      "id": "X-24",
+      "name": "Third-Person Case Study",
+      "template": "{Person/faceless thing} {achieved specific $ outcome} {doing something ordinary}.\n\n{Line that sharpens the how}.",
+      "example": "{Real named account} made {real $} {doing ordinary thing}. Link in reply.",
+      "best_for": "reposts and bookmarks (claimed common winner in a ~450-post corpus: folklore)",
+      "goal": "shares",
+      "trap": "Unverifiable result; source link required.",
+      "match": [
+        "\\b(a|one|this) (faceless|solo|single|tiny) \\w+\\b[^.\\n]*\\$\\d"
+      ],
+      "source": "sergebulaev/x-skills X11"
+    },
+    {
+      "id": "X-25",
+      "name": "Curiosity Gap",
+      "template": "{Surprising outcome as fact}.\n\nI did not expect why. Here is what actually happened.",
+      "example": "Our slowest feature had the best retention. I did not expect why.",
+      "best_for": "replies and bookmarks",
+      "goal": "comments",
+      "trap": "Gap never closed.",
+      "match": [
+        "\\bi (did not|didn'?t) expect (why|this|that)\\b"
+      ],
+      "source": "sergebulaev/x-skills X9"
+    },
+    {
+      "id": "X-26",
+      "name": "How-I Teardown",
+      "template": "How I {result with number} in {timeframe}.\n\nThe exact steps, nothing held back.",
+      "example": "How I cut our CI time from 18 to 6 minutes in a week. The exact steps.",
+      "best_for": "bookmarks (rare among real over-performers: craft caveat)",
+      "goal": "saves",
+      "trap": "The result is not provably yours.",
+      "match": [
+        "^\\s*how i\\b[^.\\n]*\\d",
+        "\\bthe exact steps\\b"
+      ],
+      "source": "sergebulaev/x-skills X10"
+    },
+    {
+      "id": "X-27",
+      "name": "Hidden Cause",
+      "template": "{Outcome}. It had nothing to do with {obvious cause}.",
+      "example": "Our signups doubled in May. It had nothing to do with the launch.",
+      "best_for": "replies",
+      "goal": "comments",
+      "trap": "The real cause is never named.",
+      "match": [
+        "\\bhad nothing to do with\\b"
+      ],
+      "source": "liftli/x hook patterns"
+    },
+    {
+      "id": "X-28",
+      "name": "Two Types",
+      "template": "{A} does one thing. {B} does the opposite. {Which wins}.",
+      "example": "Junior devs ask how. Senior devs ask why not. One gets promoted.",
+      "best_for": "reposts",
+      "goal": "shares",
+      "trap": "A strawman type.",
+      "match": [
+        "\\bdoes one thing\\.",
+        "\\bdoes the opposite\\b"
+      ],
+      "source": "liftli/x hook patterns"
+    }
+  ]
+}

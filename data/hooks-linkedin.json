@@ -1,0 +1,441 @@
+{
+  "version": "2.0.0",
+  "platform": "linkedin",
+  "source": "Jakeschincariol/linkedin-agent-skill li-post hooks.json (LI-01..21, source order); LI-22+ from sergebulaev/linkedin-skills and liftli/linkedin",
+  "evidence": "craft; performance notes in best_for are folklore unless labelled",
+  "rules": [
+    "One idea per hook.",
+    "Line 2 is the payoff, not setup.",
+    "No '?' in line 1 unless only the user could ask it.",
+    "Numbers beat adjectives.",
+    "If the hook works with any other person's name on it, it is not the user's hook.",
+    "Fold ~140 chars mobile, ~210 desktop (craft, device-dependent).",
+    "Pick 3 hooks from 3 different formulas, never 3 variants of one.",
+    "Examples show shape only; never reuse their numbers."
+  ],
+  "classify_order": [
+    "LI-03",
+    "LI-24",
+    "LI-22",
+    "LI-25",
+    "LI-26",
+    "LI-21",
+    "LI-17",
+    "LI-15",
+    "LI-16",
+    "LI-18",
+    "LI-19",
+    "LI-20",
+    "LI-29",
+    "LI-06",
+    "LI-11",
+    "LI-13",
+    "LI-07",
+    "LI-23",
+    "LI-27",
+    "LI-28",
+    "LI-04",
+    "LI-02",
+    "LI-10",
+    "LI-12",
+    "LI-05",
+    "LI-09",
+    "LI-08",
+    "LI-01",
+    "LI-14"
+  ],
+  "hooks": [
+    {
+      "id": "LI-01",
+      "name": "Contrarian Take",
+      "template": "Everyone says {common advice}. After {specific experience}, I think that is wrong.",
+      "example": "Everyone says post daily. I posted 4x a week for a year and beat every daily poster in my niche.",
+      "best_for": "a point of view (source claims highest comment rate: folklore)",
+      "goal": "comments",
+      "trap": "Being contrarian about something nobody actually believes.",
+      "match": [
+        "\\beveryone (says|thinks|tells you|is wrong)\\b",
+        "\\bmost people (think|believe|say)\\b",
+        "\\bunpopular opinion\\b",
+        "\\bi think (that is|that'?s|it'?s|it is) wrong\\b",
+        "\\bis (overrated|a lie|dead|bad advice)\\b"
+      ]
+    },
+    {
+      "id": "LI-02",
+      "name": "Number Reveal",
+      "template": "I {did thing} for {N} {days/weeks}. Here is what actually happened.",
+      "example": "I sent 400 cold DMs in 30 days. 11 replied. 2 became clients.",
+      "best_for": "experiments",
+      "goal": "saves",
+      "trap": "Burying the number below the fold.",
+      "match": [
+        "\\bi (did|sent|posted|ran|tried|tested|tracked|spent|wrote|built|shipped|published|made)\\b[^.!?\\n]{0,60}\\b(for|in) \\d+ (days?|weeks?|months?|years?)\\b",
+        "\\bhere'?s what (actually )?happened\\b",
+        "\\bhere is what (actually )?happened\\b"
+      ]
+    },
+    {
+      "id": "LI-03",
+      "name": "Mistake Confession",
+      "template": "{Specific cost} is what {one mistake} cost me.",
+      "example": "$18,000 is what not having a contract cost me last March.",
+      "best_for": "trust; people forward posts where the author looks bad",
+      "goal": "shares",
+      "trap": "A fake-humble mistake or a cost with no number.",
+      "match": [
+        "\\$\\s?\\d[\\d,.]*k?\\s+(is|was) what\\b",
+        "\\bcost (me|us|him|her|them)\\b",
+        "\\blost\\b[^.!?\\n]{0,20}\\$\\s?\\d",
+        "\\b(my|our) (biggest|worst|costliest) mistake\\b"
+      ]
+    },
+    {
+      "id": "LI-04",
+      "name": "Before/After",
+      "template": "{Time ago} I was {low}. Today I {high}. The difference was {one thing}.",
+      "example": "18 months ago I was writing proposals at 2am. Today I send them in 6 minutes. One template did it.",
+      "best_for": "proof of distance travelled",
+      "goal": "follows",
+      "trap": "Three-part transformations; name one lever.",
+      "match": [
+        "\\b(\\d+|a few|two|three|six|ten) (days?|weeks?|months?|years?) ago,? (i|we)\\b",
+        "\\btoday (i|we)\\b",
+        "\\bthe difference was\\b",
+        "\\bone (thing|template|change) did it\\b"
+      ]
+    },
+    {
+      "id": "LI-05",
+      "name": "List Promise",
+      "template": "{N} things I wish someone had told me before {milestone}.",
+      "example": "7 things I wish someone had told me before I hired my first employee.",
+      "best_for": "saves (claimed highest save rate: folklore)",
+      "goal": "saves",
+      "trap": "N over 10.",
+      "match": [
+        "^\\s*\\d+\\s+(things|lessons|mistakes|rules|ways|tips|questions|habits|steps|tools|signs)\\b",
+        "\\bthings i wish\\b"
+      ]
+    },
+    {
+      "id": "LI-06",
+      "name": "Insider Secret",
+      "template": "After {N} years {doing thing}, here is the part nobody puts in the {job posting/course/pitch}.",
+      "example": "After 9 years in agency sales, here is the part nobody puts in the pitch deck.",
+      "best_for": "credentialed takes; the years must be real",
+      "goal": "follows",
+      "trap": "Delivering common knowledge as a secret.",
+      "match": [
+        "\\bafter \\d+ years\\b",
+        "\\bthe part nobody\\b",
+        "\\bnobody puts in\\b"
+      ]
+    },
+    {
+      "id": "LI-07",
+      "name": "Callout",
+      "template": "If you are still {outdated thing}, stop.",
+      "example": "If you are still writing your LinkedIn posts in the LinkedIn composer, stop.",
+      "best_for": "short one-instruction posts",
+      "goal": "shares",
+      "trap": "Calling out a habit nobody has, or contempt for your own audience.",
+      "match": [
+        "\\bif you('re| are) still\\b",
+        ",\\s*stop[.!]?\\s*$"
+      ]
+    },
+    {
+      "id": "LI-08",
+      "name": "Question Trap",
+      "template": "{Specific scenario with a real cost}. What do you do?",
+      "example": "Your best client asks for a 40% discount and hints they will leave without it. What do you do?",
+      "best_for": "comment volume",
+      "goal": "comments",
+      "trap": "An obvious right answer; it needs a real fork.",
+      "match": [
+        "\\bwhat (do|would) you do\\??\\s*$",
+        "\\bwhat would you do\\b"
+      ]
+    },
+    {
+      "id": "LI-09",
+      "name": "Story Cold Open",
+      "template": "\"{Line of dialogue}\"\n\n{Who said it, when, why it mattered}.",
+      "example": "\"We are going with someone cheaper.\" That email arrived 40 minutes after I sent my best proposal of the year.",
+      "best_for": "dwell (claimed highest dwell: folklore)",
+      "goal": "follows",
+      "trap": "Dialogue nobody would actually say.",
+      "match": [
+        "^\\s*[\"“][^\"”]{3,}[\"”]"
+      ]
+    },
+    {
+      "id": "LI-10",
+      "name": "The Receipt",
+      "template": "{Screenshot or hard number}. {One sentence of context}.",
+      "example": "3 clients, 11 days, zero calls booked. Here is the exact sequence that did it.",
+      "best_for": "provable things (image pairing 'doubles reach' is folklore)",
+      "goal": "saves",
+      "trap": "A number with no story.",
+      "match": [
+        "^\\s*\\d[\\d,.]*\\s+\\w+,\\s*\\d",
+        "\\bscreenshot\\b",
+        "\\bthe exact sequence\\b",
+        "\\breceipts?\\b"
+      ]
+    },
+    {
+      "id": "LI-11",
+      "name": "Myth Bust",
+      "template": "{Popular explanation} is not why {bad outcome} is happening to you.",
+      "example": "The algorithm is not why your posts are dying.",
+      "best_for": "reframing",
+      "goal": "shares",
+      "trap": "Never naming the real cause.",
+      "match": [
+        "\\b(is|are) not why\\b",
+        "\\b(isn'?t|aren'?t) why\\b",
+        "\\bnot the reason\\b"
+      ]
+    },
+    {
+      "id": "LI-12",
+      "name": "Comparison",
+      "template": "{Expensive} vs {cheap}. {Surprising verdict}.",
+      "example": "$12,000 brand agency vs a $20 tool and a weekend. The weekend won.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "An unfair comparison; concede what the expensive option does better.",
+      "match": [
+        "\\bvs\\.?\\b",
+        "\\bversus\\b",
+        "\\bbetter than\\b",
+        "\\bwon\\.?\\s*$"
+      ]
+    },
+    {
+      "id": "LI-13",
+      "name": "Permission Slip",
+      "template": "You are allowed to {thing reader feels guilty about}.",
+      "example": "You are allowed to turn down work that pays well and makes you miserable.",
+      "best_for": "reach beyond the niche",
+      "goal": "shares",
+      "trap": "Generic self-care.",
+      "match": [
+        "\\byou('re| are) allowed to\\b",
+        "\\bgive yourself permission\\b"
+      ]
+    },
+    {
+      "id": "LI-14",
+      "name": "Pattern Interrupt",
+      "template": "{One word or three-word line.}",
+      "example": "I got fired.",
+      "best_for": "scroll stop; use once a month at most",
+      "goal": "comments",
+      "trap": "Overuse.",
+      "match": [
+        "^\\s*(\\S+\\s+){0,3}\\S+[.!]?\\s*$"
+      ]
+    },
+    {
+      "id": "LI-15",
+      "name": "The Warning",
+      "template": "{Common practice} is quietly costing you {specific thing}.",
+      "example": "Your 'quick call to align' is quietly costing you six hours a week.",
+      "best_for": "problem-aware readers",
+      "goal": "saves",
+      "trap": "Fear with no exit; give the fix.",
+      "match": [
+        "\\b(is|are) (quietly )?costing you\\b",
+        "\\bkilling your\\b"
+      ]
+    },
+    {
+      "id": "LI-16",
+      "name": "Good vs Great",
+      "template": "Good {role} {X}. Great {role} {Y}.",
+      "example": "Good salespeople answer the question. Great salespeople ask why it was asked.",
+      "best_for": "quotable lines",
+      "goal": "shares",
+      "trap": "Y is just 'try harder'.",
+      "match": [
+        "\\bgood \\w+[^.\\n]{2,80}\\.\\s*great \\w+"
+      ]
+    },
+    {
+      "id": "LI-17",
+      "name": "Time Anchor",
+      "template": "{Task} used to take me {long}. It now takes {short}.",
+      "example": "Writing a week of posts used to take me 5 hours. It now takes 20 minutes.",
+      "best_for": "how-to and tools",
+      "goal": "saves",
+      "trap": "An unbelievable ratio (5 h to 8 s).",
+      "match": [
+        "\\bused to take\\b",
+        "\\b(it )?now takes\\b",
+        "\\bfrom \\d+ (hours?|minutes?|days?) to \\d+"
+      ]
+    },
+    {
+      "id": "LI-18",
+      "name": "Unpopular Rule",
+      "template": "I do not {widely accepted practice}. Ever. Here is why.",
+      "example": "I do not take discovery calls. Ever.",
+      "best_for": "positioning",
+      "goal": "follows",
+      "trap": "A rule you break.",
+      "match": [
+        "\\bi (do not|don'?t|never) [^.\\n]{2,50}\\.\\s*ever\\b",
+        "\\bever\\.\\s*here('s| is) why\\b"
+      ]
+    },
+    {
+      "id": "LI-19",
+      "name": "Curiosity Gap",
+      "template": "The {superlative} {thing} I ever {verb} {broke the obvious rule}.",
+      "example": "The best hire I ever made failed the interview.",
+      "best_for": "forces 'see more'",
+      "goal": "clicks",
+      "trap": "The gap is not closed by line 4.",
+      "match": [
+        "\\bthe (best|worst|biggest|smartest|fastest|strangest) \\w+ (i|we) ever\\b"
+      ]
+    },
+    {
+      "id": "LI-20",
+      "name": "Walk-Away",
+      "template": "I {fired/quit/deleted/cancelled} {valuable thing}. {Result}.",
+      "example": "I fired my highest-paying client in January. Revenue is up 30%.",
+      "best_for": "values plus result",
+      "goal": "follows",
+      "trap": "No cost named = theatre.",
+      "match": [
+        "\\b(i|we) (fired|quit|deleted|cancelled|canceled|turned down|walked away from)\\b"
+      ]
+    },
+    {
+      "id": "LI-21",
+      "name": "Direct Value",
+      "template": "Here is the exact {artifact} I used to {outcome}. Steal it.",
+      "example": "Here is the exact 4-line email I used to reopen 3 dead deals. Steal it.",
+      "best_for": "conversion (claimed highest: folklore)",
+      "goal": "saves",
+      "trap": "Making them ask for it instead of giving it in the post.",
+      "match": [
+        "\\bhere('s| is) the exact\\b",
+        "\\bsteal (it|this)\\b"
+      ]
+    },
+    {
+      "id": "LI-22",
+      "name": "R.I.P.",
+      "template": "R.I.P. {category}. Cause of death: {mechanism + numbers}.",
+      "example": "R.I.P. the cold email. Cause of death: {mechanism with a real number}.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "A category that is not actually dying.",
+      "match": [
+        "^\\s*r\\.?\\s?i\\.?\\s?p\\.?\\s",
+        "\\bcause of death\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F2"
+    },
+    {
+      "id": "LI-23",
+      "name": "Year-on-Year Pivot",
+      "template": "In {last year}, I {humble benchmark}. In {this year}, I'm {goal}.",
+      "example": "In 2025, I {humble real benchmark}. In 2026, I'm {goal}.",
+      "best_for": "follows",
+      "goal": "follows",
+      "trap": "A benchmark that is a secret brag.",
+      "match": [
+        "\\bin 20\\d\\d,? (i|we)\\b[^.\\n]*\\.\\s*in 20\\d\\d\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F3"
+    },
+    {
+      "id": "LI-24",
+      "name": "Odd-Precision Ledger",
+      "template": "{$ unrounded figure} {what it paid for}. Every line item unrounded.",
+      "example": "$873.47 in API overages last month. Here is the line-by-line.",
+      "best_for": "saves (vendor claim +34% for number-first: folklore)",
+      "goal": "saves",
+      "trap": "Inventing precision; only real invoices.",
+      "match": [
+        "\\$\\d[\\d,]*\\.\\d{2}\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F7"
+    },
+    {
+      "id": "LI-25",
+      "name": "Controlled A/B",
+      "template": "{Action A} -> {outcome A}. {Same action, one variable changed} -> {outcome B}. Same X. Same Y. The only variable is Z.",
+      "example": "Same post, two hooks. Same time. Same audience. The only variable was line 1.",
+      "best_for": "saves",
+      "goal": "saves",
+      "trap": "More than one variable changed.",
+      "match": [
+        "\\bsame \\w+\\.\\s*same \\w+\\.",
+        "\\bthe only variable\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F17"
+    },
+    {
+      "id": "LI-26",
+      "name": "False Binary",
+      "template": "Everyone reaches for one of two answers: {A} or {B}. There is a third.",
+      "example": "Everyone reaches for one of two answers: a bigger model or more data. There is a third.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "The third option is a mix of the two.",
+      "match": [
+        "\\bone of two (answers|options|choices)\\b",
+        "\\bthere'?s a third\\b",
+        "\\bthere is a third\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F18"
+    },
+    {
+      "id": "LI-27",
+      "name": "Diverging Curves",
+      "template": "Month one, {X}. Month six, {Y}. {Maxim}.",
+      "example": "Month one, both teams shipped weekly. Month six, one team still did.",
+      "best_for": "shares",
+      "goal": "shares",
+      "trap": "Curves you did not observe.",
+      "match": [
+        "\\bmonth (one|1),",
+        "\\bmonth (six|twelve|\\d+),"
+      ],
+      "source": "sergebulaev/linkedin-skills F20"
+    },
+    {
+      "id": "LI-28",
+      "name": "Tension Between Two Facts",
+      "template": "{Fact A}. {Fact B that should not be true with A}.",
+      "example": "Our churn doubled. Revenue went up.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "Facts that are not actually in tension.",
+      "match": [
+        "\\b(doubled|halved|tripled|dropped|fell|rose)\\.\\s*\\w+(\\s\\w+)? (went up|went down|grew|rose|fell|dropped|doubled)\\b"
+      ],
+      "source": "liftli/linkedin hook patterns"
+    },
+    {
+      "id": "LI-29",
+      "name": "Stopped Doing",
+      "template": "{N} {months} ago, I stopped {behavior}. {Number, not 'here is what happened'}.",
+      "example": "{N} months ago I stopped {real behavior}. {Real number}.",
+      "best_for": "comments",
+      "goal": "comments",
+      "trap": "Line 2 is 'Here is what happened' instead of a number.",
+      "match": [
+        "\\bago,? (i|we) stopped\\b"
+      ],
+      "source": "sergebulaev/linkedin-skills F4"
+    }
+  ]
+}

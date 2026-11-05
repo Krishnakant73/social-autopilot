@@ -1,0 +1,5 @@
+node_modules/
+*.log
+social-log.csv
+.env
+.env.*
